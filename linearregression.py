@@ -10,9 +10,6 @@ class Simple_Linear_Regression:
         self.epoch = epoch
         self.learnrate = learnrate
 
-    def cost_function(self):
-        pass
-
     def output(self,input):
         output = self.weight[:,1:].dot(input.T)+self.weight[:,0]
         self.output_=np.array([])
@@ -20,20 +17,14 @@ class Simple_Linear_Regression:
         return output
 
     def update(self,w,t,input):
-        temp = np.array([[1]])
         n = t.size
         o = self.output(input)
         delta_w = 2*self.learnrate/n*(t-o).dot(input)
         delta_w0 = 2*self.learnrate/n*(t-o).sum()
         w[:,1:] = w[:,1:] + delta_w
         w[:,0] = w[:,0] + delta_w0
-        #print(w)
-
-
         return w
 
     def train(self):
-
         for _ in range(self.epoch):
             self.weight = self.update(self.weight, self.target, self.input)
-            #print(self.weight)
